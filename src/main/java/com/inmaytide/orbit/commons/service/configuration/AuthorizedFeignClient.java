@@ -19,8 +19,8 @@ public @interface AuthorizedFeignClient {
     @AliasFor(annotation = FeignClient.class, attribute = "name")
     String name() default "";
 
-    @AliasFor(annotation = FeignClient.class, attribute = "qualifier")
-    String qualifier() default "";
+    @AliasFor(annotation = FeignClient.class, attribute = "qualifiers")
+    String[] qualifiers() default {};
 
     @AliasFor(annotation = FeignClient.class, attribute = "configuration")
     Class<?>[] configuration() default {AuthorizedFeignClientConfiguration.class};

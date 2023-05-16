@@ -28,7 +28,8 @@ interface InsideAuthorizationService {
                          @RequestParam("client_secret") String clientSecret,
                          @RequestParam("username") String username,
                          @RequestParam("password") String password,
-                         @RequestParam("platform") String platform);
+                         @RequestParam("platform") String platform,
+                         @RequestParam("forcedReplacement") String forcedReplacement);
 
     @PostMapping("/oauth2/token?grant_type=client_credentials")
     Oauth2Token getToken(@RequestParam("client_id") String clientId, @RequestParam("client_secret") String clientSecret);
@@ -37,6 +38,12 @@ interface InsideAuthorizationService {
     void revokeToken(String accessToken);
 
     @GetMapping("/api/internal/users/{id}")
-    GlobalUser loadUserById(@PathVariable Serializable id);
+    GlobalUser loadUserById(@PathVariable("id") Serializable id);
+
+    @GetMapping(value = "/api/users/current", headers = {"Authorization=Bearer {accessToken}"})
+    GlobalUser getCurrentUser(@RequestParam("accessToken") String accessToken);
+
+    @GetMapping(value = "/api/users/current/platform", headers = {"Authorization=Bearer {accessToken}"})
+    Platforms getCurrentPlatform(@RequestParam("accessToken") String accessToken);
 
 }
