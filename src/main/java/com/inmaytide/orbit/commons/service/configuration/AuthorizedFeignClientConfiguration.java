@@ -14,7 +14,6 @@ class AuthorizedFeignClientConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizedFeignClientConfiguration.class);
 
-
     @Bean(name = "authorizedFeignClientInterceptor")
     @ConditionalOnClass(name = "com.alibaba.cloud.nacos.discovery.NacosDiscoveryClient")
     public RequestInterceptor nacosAuthorizedFeignClientInterceptor() {

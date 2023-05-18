@@ -49,7 +49,7 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheNames.USER_DETAILS, key = "#id", unless = "#result != null")
+    @Cacheable(cacheNames = CacheNames.USER_DETAILS, key = "#id", unless = "#result == null")
     public GlobalUser loadUserById(Serializable id) {
         return CallableWrapper.call(() -> service.loadUserById(id));
     }
