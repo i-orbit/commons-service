@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AuthorizedFeignClient(name = "uaa", contextId = "user")
 interface InsideUserService {
 
-    @GetMapping("/api/internal/users/get-id-by-username")
+    @GetMapping("/api/users/id")
     Long getIdByUsername(@RequestParam("username") String username);
 
 }
