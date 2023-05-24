@@ -12,9 +12,9 @@ import com.inmaytide.orbit.commons.security.UserDetailsService;
  */
 public interface AuthorizationService extends UserDetailsService {
 
-    Oauth2Token refreshToken(String clientId, String clientSecret, String refreshToken);
+    Oauth2Token refreshToken(String refreshToken);
 
-    Oauth2Token getToken(String clientId, String clientSecret, String username, String password, Platforms platform, Is forcedReplacement);
+    Oauth2Token getToken(String username, String password, Platforms platform, Is forcedReplacement);
 
     void revokeToken(String accessToken);
 

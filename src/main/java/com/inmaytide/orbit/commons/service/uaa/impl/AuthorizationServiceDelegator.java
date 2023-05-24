@@ -5,6 +5,7 @@ import com.inmaytide.orbit.commons.consts.Is;
 import com.inmaytide.orbit.commons.consts.Platforms;
 import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
+import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.inmaytide.orbit.commons.domain.Robot;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
 import com.inmaytide.orbit.commons.service.CallableWrapper;
@@ -29,18 +30,18 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
     }
 
     @Override
-    public Oauth2Token refreshToken(String clientId, String clientSecret, String refreshToken) {
-        return CallableWrapper.call(() -> service.refreshToken(clientId, clientSecret, refreshToken));
+    public Oauth2Token refreshToken(String refreshToken) {
+        return CallableWrapper.call(() -> service.refreshToken(OrbitClientDetails.getInstance().getClientId(), OrbitClientDetails.getInstance().getClientSecret(), refreshToken));
     }
 
     @Override
-    public Oauth2Token getToken(String clientId, String clientSecret, String username, String password, Platforms platform, Is forcedReplacement) {
-        return CallableWrapper.call(() -> service.getToken(clientId, clientSecret, username, password, platform.name(), forcedReplacement.name()));
+    public Oauth2Token getToken(String username, String password, Platforms platform, Is forcedReplacement) {
+        return CallableWrapper.call(() -> service.getToken(OrbitClientDetails.getInstance().getClientId(), OrbitClientDetails.getInstance().getClientSecret(), username, password, platform.name(), forcedReplacement.name()));
     }
 
     @Override
     public void revokeToken(String accessToken) {
-        RunnableWrapper.execute(() -> service.revokeToken(accessToken));
+        RunnableWrapper.execute(() -> service.revokeToken(accessToken, OrbitClientDetails.getInstance().getClientId(), OrbitClientDetails.getInstance().getClientSecret()));
     }
 
     @Override

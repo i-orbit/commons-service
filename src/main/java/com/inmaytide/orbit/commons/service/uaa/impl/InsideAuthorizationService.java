@@ -34,8 +34,8 @@ interface InsideAuthorizationService {
     @PostMapping("/oauth2/token?grant_type=client_credentials")
     Oauth2Token getToken(@RequestParam("client_id") String clientId, @RequestParam("client_secret") String clientSecret);
 
-    @PostMapping(value = "/oauth2/revoke", headers = {"Authorization=Bearer {token}"})
-    void revokeToken(String accessToken);
+    @PostMapping(value = "/oauth2/revoke")
+    void revokeToken(@RequestParam("token") String token, @RequestParam("client_id") String clientId, @RequestParam("client_secret") String clientSecret);
 
     @GetMapping("/api/internal/users/{id}")
     GlobalUser loadUserById(@PathVariable("id") Serializable id);
