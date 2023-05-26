@@ -1,5 +1,7 @@
 package com.inmaytide.orbit.commons.service.uaa;
 
+import com.inmaytide.orbit.commons.domain.GlobalUser;
+
 import java.util.Optional;
 
 /**
@@ -8,6 +10,6 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    Optional<Long> getIdByUsername(String username);
+    Optional<GlobalUser> getUserByUsername(String username);
 
 }

@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
+import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.service.configuration.AuthorizedFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AuthorizedFeignClient(name = "uaa", contextId = "user")
 interface InsideUserService {
 
-    @GetMapping("/api/users/id")
-    Long getIdByUsername(@RequestParam("username") String username);
+    @GetMapping("/api/users/by-username")
+    GlobalUser getUserByUsername(@RequestParam("username") String username);
 
 }

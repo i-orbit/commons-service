@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
+import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.service.CallableWrapper;
 import com.inmaytide.orbit.commons.service.uaa.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -22,10 +23,10 @@ public class UserServiceDelegator implements UserService {
     }
 
     @Override
-    public Optional<Long> getIdByUsername(@Nullable String username) {
+    public Optional<GlobalUser> getUserByUsername(String username) {
         if (StringUtils.isBlank(username)) {
             return Optional.empty();
         }
-        return CallableWrapper.call(() -> Optional.ofNullable(service.getIdByUsername(username)));
+        return CallableWrapper.call(() -> Optional.ofNullable(service.getUserByUsername(username)));
     }
 }
