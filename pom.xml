@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.inmaytide.orbit</groupId>
-    <artifactId>commons-services</artifactId>
+    <artifactId>commons-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>commons-services</name>
 

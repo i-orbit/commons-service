@@ -4,13 +4,13 @@ import com.inmaytide.orbit.commons.consts.Is;
 import com.inmaytide.orbit.commons.consts.Platforms;
 import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
-import com.inmaytide.orbit.commons.security.UserDetailsService;
+import com.inmaytide.orbit.commons.provider.UserDetailsProvider;
 
 /**
  * @author inmaytide
  * @since 2023/5/9
  */
-public interface AuthorizationService extends UserDetailsService {
+public interface AuthorizationService extends UserDetailsProvider {
 
     Oauth2Token refreshToken(String refreshToken);
 
