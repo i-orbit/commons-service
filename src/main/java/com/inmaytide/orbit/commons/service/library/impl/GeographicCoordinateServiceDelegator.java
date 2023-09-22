@@ -52,7 +52,7 @@ public class GeographicCoordinateServiceDelegator implements GeographicCoordinat
     @Override
     public AffectedResult persist(List<GeographicCoordinate> coordinates) {
         if (CollectionUtils.isEmpty(coordinates)) {
-            return AffectedResult.notAffected();
+            return AffectedResult.NOT_AFFECTED;
         }
         return service.persist(coordinates);
     }
