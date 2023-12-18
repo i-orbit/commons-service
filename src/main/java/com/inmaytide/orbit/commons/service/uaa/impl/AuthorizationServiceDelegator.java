@@ -46,7 +46,7 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
 
     @Override
     public Oauth2Token getRobotToken() {
-        return CallableWrapper.call(() -> service.getToken(Robot.getInstance().getUsername(), Robot.getInstance().getPassword()));
+        return CallableWrapper.call(() -> service.getToken(Robot.getInstance().getLoginName(), Robot.getInstance().getPassword()));
     }
 
     @Override
