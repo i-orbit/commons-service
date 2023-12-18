@@ -1,7 +1,7 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
-import com.inmaytide.orbit.commons.consts.Platforms;
-import com.inmaytide.orbit.commons.domain.GlobalUser;
+import com.inmaytide.orbit.commons.constants.Platforms;
+import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.service.configuration.AuthorizedFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,10 +38,10 @@ interface InsideAuthorizationService {
     void revokeToken(@RequestParam("token") String token, @RequestParam("client_id") String clientId, @RequestParam("client_secret") String clientSecret);
 
     @GetMapping("/api/internal/users/{id}")
-    GlobalUser loadUserById(@PathVariable("id") Serializable id);
+    SystemUser loadUserById(@PathVariable("id") Serializable id);
 
     @GetMapping(value = "/api/users/current", headers = {"Authorization=Bearer {accessToken}"})
-    GlobalUser getCurrentUser(@RequestParam("accessToken") String accessToken);
+    SystemUser getCurrentUser(@RequestParam("accessToken") String accessToken);
 
     @GetMapping(value = "/api/users/current/platform", headers = {"Authorization=Bearer {accessToken}"})
     Platforms getCurrentPlatform(@RequestParam("accessToken") String accessToken);

@@ -2,7 +2,7 @@ package com.inmaytide.orbit.commons.service.configuration;
 
 import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.nacos.api.exception.NacosException;
-import com.inmaytide.orbit.commons.consts.HttpHeaderNames;
+import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.service.uaa.AuthorizationService;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import com.inmaytide.orbit.commons.utils.CodecUtils;
@@ -69,26 +69,26 @@ class NacosAuthorizedFeignClientInterceptor implements RequestInterceptor {
             setAuthorization(template);
         }
         // 在请求 HttpHeader 中设置调用链标识
-        if (CollectionUtils.isEmpty(template.headers().get(HttpHeaderNames.CALL_CHAIN))) {
+        if (CollectionUtils.isEmpty(template.headers().get(Constants.HttpHeaderNames.CALL_CHAIN))) {
             String id;
             try {
                 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
                 HttpServletRequest request = attributes.getRequest();
-                id = request.getHeader(HttpHeaderNames.CALL_CHAIN);
+                id = request.getHeader(Constants.HttpHeaderNames.CALL_CHAIN);
             } catch (Exception e) {
-                id = CodecUtils.generateUUID();
+                id = CodecUtils.randomUUID();
             }
-            template.header(HttpHeaderNames.CALL_CHAIN, id);
+            template.header(Constants.HttpHeaderNames.CALL_CHAIN, id);
         }
     }
 
     private void setApplicationInstantId(RequestTemplate template) {
-        template.header(HttpHeaderNames.SERVICE_INSTANCE_ID, getInstanceId());
+        template.header(Constants.HttpHeaderNames.SERVICE_INSTANCE_ID, getInstanceId());
     }
 
     private void setAuthorization(RequestTemplate template, String token) {
-        if (CollectionUtils.isEmpty(template.headers().get(HttpHeaderNames.AUTHORIZATION))) {
-            template.header(HttpHeaderNames.AUTHORIZATION, HttpHeaderNames.AUTHORIZATION_PREFIX + token);
+        if (CollectionUtils.isEmpty(template.headers().get(Constants.HttpHeaderNames.AUTHORIZATION))) {
+            template.header(Constants.HttpHeaderNames.AUTHORIZATION, Constants.HttpHeaderNames.AUTHORIZATION_PREFIX + token);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
-import com.inmaytide.orbit.commons.domain.GlobalUser;
 import com.inmaytide.orbit.commons.domain.Tenant;
 import com.inmaytide.orbit.commons.domain.dto.result.PageResult;
 import com.inmaytide.orbit.commons.service.configuration.AuthorizedFeignClient;

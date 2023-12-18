@@ -1,16 +1,16 @@
 package com.inmaytide.orbit.commons.service.uaa;
 
-import com.inmaytide.orbit.commons.consts.Is;
-import com.inmaytide.orbit.commons.consts.Platforms;
-import com.inmaytide.orbit.commons.domain.GlobalUser;
+import com.inmaytide.orbit.commons.business.SystemUserService;
+import com.inmaytide.orbit.commons.constants.Is;
+import com.inmaytide.orbit.commons.constants.Platforms;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
-import com.inmaytide.orbit.commons.provider.UserDetailsProvider;
+import com.inmaytide.orbit.commons.domain.SystemUser;
 
 /**
  * @author inmaytide
  * @since 2023/5/9
  */
-public interface AuthorizationService extends UserDetailsProvider {
+public interface AuthorizationService extends SystemUserService {
 
     Oauth2Token refreshToken(String refreshToken);
 
@@ -23,14 +23,14 @@ public interface AuthorizationService extends UserDetailsProvider {
     /**
      * 获取当前登录用户信息 - 适用系统无法自动获取 Access Token 的情况(WebFlux | Robot登录)
      */
-    GlobalUser getCurrentUser(String accessToken);
+    SystemUser getCurrentUser(String accessToken);
 
     Platforms getCurrentPlatform(String accessToken);
 
     /**
      * 获取当前登录用户信息 - 适用系统可以自动获取 Access Token 的情况
      */
-    GlobalUser getCurrentUser();
+    SystemUser getCurrentUser();
 
     Platforms getCurrentPlatform();
 

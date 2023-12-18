@@ -1,9 +1,9 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
-import com.inmaytide.orbit.commons.consts.CacheNames;
-import com.inmaytide.orbit.commons.consts.Is;
-import com.inmaytide.orbit.commons.consts.Platforms;
-import com.inmaytide.orbit.commons.domain.GlobalUser;
+import com.inmaytide.orbit.commons.constants.Constants;
+import com.inmaytide.orbit.commons.constants.Is;
+import com.inmaytide.orbit.commons.constants.Platforms;
+import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.inmaytide.orbit.commons.domain.Robot;
@@ -50,18 +50,18 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheNames.USER_DETAILS, key = "#id", unless = "#result == null")
-    public GlobalUser get(Serializable id) {
+    @Cacheable(cacheNames = Constants.CacheNames.USER_DETAILS, key = "#id", unless = "#result == null")
+    public SystemUser get(Serializable id) {
         return CallableWrapper.call(() -> service.loadUserById(id));
     }
 
     @Override
-    public GlobalUser getCurrentUser(String accessToken) {
+    public SystemUser getCurrentUser(String accessToken) {
         return CallableWrapper.call(() -> service.getCurrentUser(accessToken));
     }
 
     @Override
-    public GlobalUser getCurrentUser() {
+    public SystemUser getCurrentUser() {
         return SecurityUtils.getAuthorizedUser();
     }
 
