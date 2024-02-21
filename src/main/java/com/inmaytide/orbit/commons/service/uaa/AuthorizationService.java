@@ -5,6 +5,7 @@ import com.inmaytide.orbit.commons.constants.Is;
 import com.inmaytide.orbit.commons.constants.Platforms;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.domain.SystemUser;
+import com.inmaytide.orbit.commons.domain.dto.params.LoginParameters;
 
 /**
  * @author inmaytide
@@ -14,7 +15,7 @@ public interface AuthorizationService extends SystemUserService {
 
     Oauth2Token refreshToken(String refreshToken);
 
-    Oauth2Token getToken(String username, String password, Platforms platform, Is forcedReplacement);
+    Oauth2Token getToken(LoginParameters params);
 
     void revokeToken(String accessToken);
 

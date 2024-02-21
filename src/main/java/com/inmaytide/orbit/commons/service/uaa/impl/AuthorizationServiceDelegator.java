@@ -1,12 +1,12 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
 import com.inmaytide.orbit.commons.constants.Constants;
-import com.inmaytide.orbit.commons.constants.Is;
 import com.inmaytide.orbit.commons.constants.Platforms;
-import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.inmaytide.orbit.commons.domain.Robot;
+import com.inmaytide.orbit.commons.domain.SystemUser;
+import com.inmaytide.orbit.commons.domain.dto.params.LoginParameters;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
 import com.inmaytide.orbit.commons.service.CallableWrapper;
 import com.inmaytide.orbit.commons.service.RunnableWrapper;
@@ -35,8 +35,17 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
     }
 
     @Override
-    public Oauth2Token getToken(String username, String password, Platforms platform, Is forcedReplacement) {
-        return CallableWrapper.call(() -> service.getToken(OrbitClientDetails.getInstance().getClientId(), OrbitClientDetails.getInstance().getClientSecret(), username, password, platform.name(), forcedReplacement.name()));
+    public Oauth2Token getToken(LoginParameters params) {
+        return CallableWrapper.call(
+                () -> service.getToken(
+                        OrbitClientDetails.getInstance().getClientId(),
+                        OrbitClientDetails.getInstance().getClientSecret(),
+                        params.getLoginName(),
+                        params.getPassword(),
+                        params.getPlatform().name(),
+                        params.getForcedReplacement().name()
+                )
+        );
     }
 
     @Override
