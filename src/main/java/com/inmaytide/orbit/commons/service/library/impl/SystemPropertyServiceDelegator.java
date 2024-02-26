@@ -26,14 +26,14 @@ public class SystemPropertyServiceDelegator implements SystemPropertyService {
 
 
     @Override
-    public Optional<String> getValue(String key) {
-        return Optional.ofNullable(service.getValue(SecurityUtils.getAuthorizedUser().getTenantId(), key));
+    public Optional<String> getValue(Long tenant, String key) {
+        return Optional.ofNullable(service.getValue(SecurityUtils.getAuthorizedUser().getTenant(), key));
     }
 
 
     @Override
-    public Optional<Integer> getIntValue(String key) {
-        String value = service.getValue(SecurityUtils.getAuthorizedUser().getTenantId(), key);
+    public Optional<Integer> getIntValue(Long tenant, String key) {
+        String value = service.getValue(SecurityUtils.getAuthorizedUser().getTenant(), key);
         return NumberUtils.isCreatable(value) ? Optional.of(NumberUtils.createInteger(value)) : Optional.empty();
     }
 

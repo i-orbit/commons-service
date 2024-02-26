@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface SystemPropertyService {
 
 
-    Optional<String> getValue(String key);
+    Optional<String> getValue(Long tenant, String key);
 
-    Optional<Integer> getIntValue(String key);
+    Optional<Integer> getIntValue(Long tenant, String key);
 
     void initializeForTenant(Long tenantId);
 
