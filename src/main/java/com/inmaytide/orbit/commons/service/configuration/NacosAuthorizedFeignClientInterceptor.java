@@ -3,6 +3,7 @@ package com.inmaytide.orbit.commons.service.configuration;
 import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.inmaytide.orbit.commons.constants.Constants;
+import com.inmaytide.orbit.commons.security.SecurityUtils;
 import com.inmaytide.orbit.commons.service.uaa.AuthorizationService;
 import com.inmaytide.orbit.commons.utils.ApplicationContextHolder;
 import com.inmaytide.orbit.commons.utils.CodecUtils;

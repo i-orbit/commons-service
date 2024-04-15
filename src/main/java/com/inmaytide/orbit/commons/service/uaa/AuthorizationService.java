@@ -21,18 +21,4 @@ public interface AuthorizationService extends SystemUserService {
 
     Oauth2Token getRobotToken();
 
-    /**
-     * 获取当前登录用户信息 - 适用系统无法自动获取 Access Token 的情况(WebFlux | Robot登录)
-     */
-    SystemUser getCurrentUser(String accessToken);
-
-    Platforms getCurrentPlatform(String accessToken);
-
-    /**
-     * 获取当前登录用户信息 - 适用系统可以自动获取 Access Token 的情况
-     */
-    SystemUser getCurrentUser();
-
-    Platforms getCurrentPlatform();
-
 }

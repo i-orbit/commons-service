@@ -6,6 +6,9 @@ import com.inmaytide.orbit.commons.service.uaa.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,4 +31,15 @@ public class UserServiceDelegator implements UserService {
         }
         return CallableWrapper.call(() -> Optional.ofNullable(service.getUserByUsername(username)));
     }
+
+    @Override
+    public Map<Long, String> findEmailsWithIds(List<Long> ids) {
+        return Map.of(9999L, "inmaytide@gmail.com");
+    }
+
+    @Override
+    public Map<Long, String> findTelephoneNumbersWithIds(List<Long> ids) {
+        return Collections.emptyMap();
+    }
+
 }

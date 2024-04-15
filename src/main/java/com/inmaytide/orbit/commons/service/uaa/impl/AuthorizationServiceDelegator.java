@@ -64,23 +64,4 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
         return CallableWrapper.call(() -> service.loadUserById(id));
     }
 
-    @Override
-    public SystemUser getCurrentUser(String accessToken) {
-        return CallableWrapper.call(() -> service.getCurrentUser(accessToken));
-    }
-
-    @Override
-    public SystemUser getCurrentUser() {
-        return SecurityUtils.getAuthorizedUser();
-    }
-
-    @Override
-    public Platforms getCurrentPlatform(String accessToken) {
-        return CallableWrapper.call(() -> service.getCurrentPlatform(accessToken));
-    }
-
-    @Override
-    public Platforms getCurrentPlatform() {
-        return SecurityUtils.getPlatform().orElse(null);
-    }
 }

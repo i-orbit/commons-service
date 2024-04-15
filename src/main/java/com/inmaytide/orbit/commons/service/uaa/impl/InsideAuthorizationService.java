@@ -1,8 +1,7 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
-import com.inmaytide.orbit.commons.constants.Platforms;
-import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
+import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.service.configuration.AuthorizedFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,11 +38,5 @@ interface InsideAuthorizationService {
 
     @GetMapping("/api/internal/users/{id}")
     SystemUser loadUserById(@PathVariable("id") Serializable id);
-
-    @GetMapping(value = "/api/users/current", headers = {"Authorization=Bearer {accessToken}"})
-    SystemUser getCurrentUser(@RequestParam("accessToken") String accessToken);
-
-    @GetMapping(value = "/api/users/current/platform", headers = {"Authorization=Bearer {accessToken}"})
-    Platforms getCurrentPlatform(@RequestParam("accessToken") String accessToken);
 
 }
