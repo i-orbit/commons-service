@@ -1,13 +1,11 @@
 package com.inmaytide.orbit.commons.service.uaa.impl;
 
 import com.inmaytide.orbit.commons.constants.Constants;
-import com.inmaytide.orbit.commons.constants.Platforms;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.inmaytide.orbit.commons.domain.Robot;
 import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.domain.dto.params.LoginParameters;
-import com.inmaytide.orbit.commons.security.SecurityUtils;
 import com.inmaytide.orbit.commons.service.CallableWrapper;
 import com.inmaytide.orbit.commons.service.RunnableWrapper;
 import com.inmaytide.orbit.commons.service.uaa.AuthorizationService;
@@ -31,15 +29,14 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
 
     @Override
     public Oauth2Token refreshToken(String refreshToken) {
-        return CallableWrapper.call(() -> service.refreshToken(OrbitClientDetails.getInstance().getClientId(), OrbitClientDetails.getInstance().getClientSecret(), refreshToken));
+        return CallableWrapper.call(() -> service.refreshToken(OrbitClientDetails.getInstance().getClientSecretBasicAuthentication(), refreshToken));
     }
 
     @Override
     public Oauth2Token getToken(LoginParameters params) {
         return CallableWrapper.call(
                 () -> service.getToken(
-                        OrbitClientDetails.getInstance().getClientId(),
-                        OrbitClientDetails.getInstance().getClientSecret(),
+                        OrbitClientDetails.getInstance().getClientSecretBasicAuthentication(),
                         params.getLoginName(),
                         params.getPassword(),
                         params.getPlatform().name(),
@@ -50,12 +47,12 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
 
     @Override
     public void revokeToken(String accessToken) {
-        RunnableWrapper.execute(() -> service.revokeToken(accessToken, OrbitClientDetails.getInstance().getClientId(), OrbitClientDetails.getInstance().getClientSecret()));
+        RunnableWrapper.execute(() -> service.revokeToken(accessToken, OrbitClientDetails.getInstance().getClientSecretBasicAuthentication()));
     }
 
     @Override
     public Oauth2Token getRobotToken() {
-        return CallableWrapper.call(() -> service.getToken(Robot.getInstance().getLoginName(), Robot.getInstance().getPassword()));
+        return CallableWrapper.call(() -> service.getToken(Robot.getInstance().getClientSecretBasicAuthentication()));
     }
 
     @Override

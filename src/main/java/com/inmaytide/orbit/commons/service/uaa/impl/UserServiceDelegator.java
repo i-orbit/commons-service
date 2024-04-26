@@ -25,14 +25,6 @@ public class UserServiceDelegator implements UserService {
     }
 
     @Override
-    public Optional<SystemUser> getUserByUsername(String username) {
-        if (StringUtils.isBlank(username)) {
-            return Optional.empty();
-        }
-        return CallableWrapper.call(() -> Optional.ofNullable(service.getUserByUsername(username)));
-    }
-
-    @Override
     public Map<Long, String> findEmailsWithIds(List<Long> ids) {
         return Map.of(9999L, "inmaytide@gmail.com");
     }

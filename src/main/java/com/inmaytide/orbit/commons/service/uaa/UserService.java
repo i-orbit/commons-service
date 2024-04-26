@@ -12,8 +12,6 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    Optional<SystemUser> getUserByUsername(String username);
-
     Map<Long, String> findEmailsWithIds(List<Long> ids);
 
     Map<Long, String> findTelephoneNumbersWithIds(List<Long> ids);
