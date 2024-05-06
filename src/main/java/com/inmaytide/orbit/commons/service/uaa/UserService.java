@@ -1,10 +1,7 @@
 package com.inmaytide.orbit.commons.service.uaa;
 
-import com.inmaytide.orbit.commons.domain.SystemUser;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author inmaytide
@@ -12,8 +9,10 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    Map<Long, String> findEmailsWithIds(List<Long> ids);
+    Map<Long, String> findNamesByIds(List<Long> ids);
 
-    Map<Long, String> findTelephoneNumbersWithIds(List<Long> ids);
+    Map<Long, String> findEmailsByIds(List<Long> ids);
+
+    Map<Long, String> findTelephoneNumbersByIds(List<Long> ids);
 
 }

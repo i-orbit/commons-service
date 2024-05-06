@@ -3,6 +3,7 @@ package com.inmaytide.orbit.commons.service.uaa.impl;
 import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.service.CallableWrapper;
 import com.inmaytide.orbit.commons.service.uaa.UserService;
+import com.inmaytide.orbit.commons.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -24,14 +25,28 @@ public class UserServiceDelegator implements UserService {
         this.service = service;
     }
 
+
     @Override
-    public Map<Long, String> findEmailsWithIds(List<Long> ids) {
-        return Map.of(9999L, "inmaytide@gmail.com");
+    public Map<Long, String> findNamesByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Map.of();
+        }
+        return service.findNamesByIds(StringUtils.join(ids, ","));
     }
 
     @Override
-    public Map<Long, String> findTelephoneNumbersWithIds(List<Long> ids) {
-        return Collections.emptyMap();
+    public Map<Long, String> findEmailsByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Map.of();
+        }
+        return service.findEmailsByIds(StringUtils.join(ids, ","));
     }
 
+    @Override
+    public Map<Long, String> findTelephoneNumbersByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Map.of();
+        }
+        return service.findTelephoneNumbersByIds(StringUtils.join(ids, ","));
+    }
 }

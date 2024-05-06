@@ -13,7 +13,8 @@ import java.util.function.Supplier;
  */
 public record CallableWrapper<T>(Callable<T> callable) {
 
-    private static final ExecutorService executor = Executors.newFixedThreadPool(5, new BasicThreadFactory.Builder().namingPattern("commons-service-%d").build());
+    private static final ExecutorService executor = Executors
+            .newFixedThreadPool(5, new BasicThreadFactory.Builder().namingPattern("commons-service-%d").build());
 
     public T call() {
         try {
