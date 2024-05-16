@@ -15,7 +15,6 @@ import java.lang.annotation.*;
 @FeignClient
 public @interface AuthorizedFeignClient {
 
-
     @AliasFor(annotation = FeignClient.class, attribute = "name")
     String name() default "";
 
@@ -28,13 +27,16 @@ public @interface AuthorizedFeignClient {
     @AliasFor(annotation = FeignClient.class, attribute = "contextId")
     String contextId() default "";
 
+    @AliasFor(annotation = FeignClient.class, attribute = "url")
     String url() default "";
 
-    boolean decode404() default false;
+    @AliasFor(annotation = FeignClient.class, attribute = "dismiss404")
+    boolean dismiss404() default false;
 
+    @AliasFor(annotation = FeignClient.class, attribute = "fallback")
     Class<?> fallback() default void.class;
 
+    @AliasFor(annotation = FeignClient.class, attribute = "path")
     String path() default "";
-
 
 }
