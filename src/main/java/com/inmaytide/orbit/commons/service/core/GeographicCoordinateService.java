@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.service.library;
+package com.inmaytide.orbit.commons.service.core;
 
 import com.inmaytide.orbit.commons.domain.GeographicCoordinate;
 import com.inmaytide.orbit.commons.domain.dto.result.AffectedResult;

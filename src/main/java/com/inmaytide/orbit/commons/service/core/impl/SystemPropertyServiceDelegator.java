@@ -1,13 +1,10 @@
-package com.inmaytide.orbit.commons.service.library.impl;
+package com.inmaytide.orbit.commons.service.core.impl;
 
 import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Constants;
-import com.inmaytide.orbit.commons.domain.SystemProperty;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
-import com.inmaytide.orbit.commons.service.library.SystemPropertyService;
-import org.apache.commons.lang3.StringUtils;
+import com.inmaytide.orbit.commons.service.core.SystemPropertyService;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -26,7 +23,6 @@ public class SystemPropertyServiceDelegator implements SystemPropertyService {
         this.service = service;
     }
 
-
     @Override
     public Optional<String> getValue(Long tenant, String key) {
         if (Objects.equals(key, Constants.SystemPropertyKeys.SYSTEM_NAME)) {
@@ -34,7 +30,6 @@ public class SystemPropertyServiceDelegator implements SystemPropertyService {
         }
         return Optional.ofNullable(service.getValue(tenant, key));
     }
-
 
     @Override
     public Optional<Integer> getIntValue(Long tenant, String key) {

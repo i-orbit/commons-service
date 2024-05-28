@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.service.library;
+package com.inmaytide.orbit.commons.service.core;
 
 /**
  * @author inmaytide

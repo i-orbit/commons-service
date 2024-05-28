@@ -1,4 +1,4 @@
-package com.inmaytide.orbit.commons.service.library.impl;
+package com.inmaytide.orbit.commons.service.core.impl;
 
 import com.inmaytide.orbit.commons.service.configuration.AuthorizedFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

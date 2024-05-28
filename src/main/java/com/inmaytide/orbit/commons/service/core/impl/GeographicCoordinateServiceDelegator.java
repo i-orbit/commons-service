@@ -1,8 +1,8 @@
-package com.inmaytide.orbit.commons.service.library.impl;
+package com.inmaytide.orbit.commons.service.core.impl;
 
 import com.inmaytide.orbit.commons.domain.GeographicCoordinate;
 import com.inmaytide.orbit.commons.domain.dto.result.AffectedResult;
-import com.inmaytide.orbit.commons.service.library.GeographicCoordinateService;
+import com.inmaytide.orbit.commons.service.core.GeographicCoordinateService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
