@@ -1,5 +1,6 @@
 package com.inmaytide.orbit.commons.service.library.impl;
 
+import com.inmaytide.orbit.Version;
 import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.domain.SystemProperty;
 import com.inmaytide.orbit.commons.security.SecurityUtils;
@@ -29,9 +30,9 @@ public class SystemPropertyServiceDelegator implements SystemPropertyService {
     @Override
     public Optional<String> getValue(Long tenant, String key) {
         if (Objects.equals(key, Constants.SystemPropertyKeys.SYSTEM_NAME)) {
-            return Optional.of("ORBIT智慧互联");
+            return Optional.of(Version.getDefaultSystemName());
         }
-        return Optional.ofNullable(service.getValue(SecurityUtils.getAuthorizedUser().getTenant(), key));
+        return Optional.ofNullable(service.getValue(tenant, key));
     }
 
 
@@ -41,8 +42,4 @@ public class SystemPropertyServiceDelegator implements SystemPropertyService {
         return NumberUtils.isCreatable(value) ? Optional.of(NumberUtils.createInteger(value)) : Optional.empty();
     }
 
-    @Override
-    public void initializeForTenant(Long tenantId) {
-        service.initializeForTenant(tenantId);
-    }
 }
