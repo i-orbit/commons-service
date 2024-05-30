@@ -12,11 +12,11 @@ import java.util.Map;
  * @since 2024/5/28
  */
 @Service
-public class DictionaryServiceImpl implements DictionaryService {
+public class DictionaryServiceDelegator implements DictionaryService {
 
     private final InsideDictionaryService service;
 
-    public DictionaryServiceImpl(InsideDictionaryService service) {
+    public DictionaryServiceDelegator(InsideDictionaryService service) {
         this.service = service;
     }
 
