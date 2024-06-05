@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.service.core.impl;
 
 import com.inmaytide.orbit.commons.domain.GeographicCoordinate;
+import com.inmaytide.orbit.commons.domain.dto.params.BatchUpdate;
 import com.inmaytide.orbit.commons.domain.dto.result.AffectedResult;
 import com.inmaytide.orbit.commons.service.configuration.AuthorizedFeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public interface InsideGeographicCoordinateService {
     @GetMapping("/api/backend/geographic-coordinates")
     Map<Long, List<GeographicCoordinate>> findByAttributions(@RequestParam("attributions") String attributions);
 
-    @PostMapping("/api/backend/geographic-coordinates")
-    AffectedResult persist(@RequestBody List<GeographicCoordinate> coordinates);
+    @PostMapping("/api/geographic/coordinates")
+    AffectedResult persist(@RequestBody BatchUpdate<GeographicCoordinate> coordinates);
 
 }

@@ -1,6 +1,7 @@
 package com.inmaytide.orbit.commons.service.core.impl;
 
 import com.inmaytide.orbit.commons.domain.GeographicCoordinate;
+import com.inmaytide.orbit.commons.domain.dto.params.BatchUpdate;
 import com.inmaytide.orbit.commons.domain.dto.result.AffectedResult;
 import com.inmaytide.orbit.commons.service.core.GeographicCoordinateService;
 import org.apache.commons.lang3.StringUtils;
@@ -27,33 +28,22 @@ public class GeographicCoordinateServiceDelegator implements GeographicCoordinat
     }
 
     @Override
-    public List<GeographicCoordinate> findByAttribution(Long attribution) {
-        if (attribution == null) {
-            return Collections.emptyList();
-        }
-        return service.findByAttribution(attribution);
+    public AffectedResult persist(BatchUpdate<GeographicCoordinate> body) {
+        return service.persist(body);
     }
 
     @Override
-    public Map<Long, List<GeographicCoordinate>> findByAttributions(List<Long> attributions) {
-        if (CollectionUtils.isEmpty(attributions)) {
-            return Collections.emptyMap();
-        }
-        String parameter = attributions.stream().distinct()
-                .filter(Objects::nonNull)
-                .map(Objects::toString)
-                .collect(Collectors.joining(","));
-        if (StringUtils.isBlank(parameter)) {
-            return Collections.emptyMap();
-        }
-        return service.findByAttributions(parameter);
+    public AffectedResult deleteByBusinessDataId(Long businessDataId) {
+        return null;
     }
 
     @Override
-    public AffectedResult persist(List<GeographicCoordinate> coordinates) {
-        if (CollectionUtils.isEmpty(coordinates)) {
-            return AffectedResult.NOT_AFFECTED;
-        }
-        return service.persist(coordinates);
+    public List<GeographicCoordinate> findByBusinessDataId(Long businessDataId) {
+        return List.of();
+    }
+
+    @Override
+    public Map<Long, List<GeographicCoordinate>> findByBusinessDataIds(List<Long> businessDataIds) {
+        return Map.of();
     }
 }
