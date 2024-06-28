@@ -25,9 +25,6 @@ public class SystemPropertyServiceDelegator implements SystemPropertyService {
 
     @Override
     public Optional<String> getValue(Long tenant, String key) {
-        if (Objects.equals(key, Constants.SystemPropertyKeys.SYSTEM_NAME)) {
-            return Optional.of(Version.getDefaultSystemName());
-        }
         return Optional.ofNullable(service.getValue(tenant, key));
     }
 
