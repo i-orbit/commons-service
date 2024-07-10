@@ -29,7 +29,13 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
 
     @Override
     public Oauth2Token refreshToken(String refreshToken) {
-        return CallableWrapper.call(() -> service.refreshToken(OrbitClientDetails.getInstance().getClientSecretBasicAuthentication(), refreshToken));
+        return CallableWrapper.call(
+                () -> service.refreshToken(
+                        OrbitClientDetails.getInstance().getClientSecretBasicAuthentication(),
+                        "refresh_token",
+                        refreshToken
+                )
+        );
     }
 
     @Override
@@ -37,6 +43,7 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
         return CallableWrapper.call(
                 () -> service.getToken(
                         OrbitClientDetails.getInstance().getClientSecretBasicAuthentication(),
+                        "password",
                         params.getLoginName(),
                         params.getPassword(),
                         params.getPlatform().name(),
@@ -52,7 +59,12 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
 
     @Override
     public Oauth2Token getRobotToken() {
-        return CallableWrapper.call(() -> service.getToken(Robot.getInstance().getClientSecretBasicAuthentication()));
+        return CallableWrapper.call(
+                () -> service.getToken(
+                        Robot.getInstance().getClientSecretBasicAuthentication(),
+                        "client_credentials"
+                )
+        );
     }
 
     @Override
