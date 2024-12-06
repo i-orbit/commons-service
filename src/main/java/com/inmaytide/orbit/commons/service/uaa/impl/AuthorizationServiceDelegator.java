@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * @author inmaytide
@@ -71,6 +72,11 @@ public class AuthorizationServiceDelegator implements AuthorizationService {
     @Cacheable(cacheNames = Constants.CacheNames.USER_DETAILS, key = "#id", unless = "#result == null")
     public SystemUser get(Serializable id) {
         return CallableWrapper.call(() -> service.loadUserById(id));
+    }
+
+    @Override
+    public Optional<SystemUser> findByUsername(String username) {
+        return Optional.empty();
     }
 
 }
