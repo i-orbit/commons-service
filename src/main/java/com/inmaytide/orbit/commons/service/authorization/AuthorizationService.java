@@ -1,8 +1,9 @@
-package com.inmaytide.orbit.commons.service.uaa;
+package com.inmaytide.orbit.commons.service.authorization;
 
 import com.inmaytide.orbit.commons.business.SystemUserService;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.domain.dto.params.LoginParameters;
+import reactor.core.publisher.Mono;
 
 /**
  * @author inmaytide
@@ -10,12 +11,12 @@ import com.inmaytide.orbit.commons.domain.dto.params.LoginParameters;
  */
 public interface AuthorizationService extends SystemUserService {
 
-    Oauth2Token refreshToken(String refreshToken);
+    Mono<Oauth2Token> refreshToken(String refreshToken);
 
-    Oauth2Token getToken(LoginParameters params);
+    Mono<Oauth2Token> getToken(LoginParameters params);
 
-    void revokeToken(String accessToken);
+    Mono<Void> revokeToken(String accessToken);
 
-    Oauth2Token getRobotToken();
+    Mono<Oauth2Token> getRobotToken();
 
 }
