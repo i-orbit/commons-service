@@ -1,10 +1,13 @@
 package com.inmaytide.orbit.commons.service.core.impl;
 
+import com.inmaytide.orbit.commons.service.WebClientFactory;
+import com.inmaytide.orbit.commons.service.configuration.Constants;
 import com.inmaytide.orbit.commons.service.core.SystemPropertyService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.Duration;
 import java.util.Optional;
 
 /**
@@ -14,20 +17,30 @@ import java.util.Optional;
 @Service
 public class DefaultSystemPropertyServiceImpl implements SystemPropertyService {
 
-    private final WebClient client;
+    private static final String SERVICE_NAME = "core";
 
-    public DefaultSystemPropertyServiceImpl(@Qualifier("internalApiClientBuilder") WebClient.Builder clientBuilder) {
-        this.client = clientBuilder.build();
+    private final WebClientFactory clientFactory;
+
+    public DefaultSystemPropertyServiceImpl(WebClientFactory clientFactory) {
+        this.clientFactory = clientFactory;
+    }
+
+    private WebClient getClient() {
+        return clientFactory.get(SERVICE_NAME);
     }
 
     @Override
     public Optional<String> getValue(Long tenant, String key) {
-        return Optional.empty();
+        return getClient().get()
+                .uri(builder -> builder.path("/api/system/properties/value").queryParam("tenantId", tenant).queryParam("key", key).build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .blockOptional(Duration.ofSeconds(Constants.BLOCK_TIMEOUT_SECONDS));
     }
 
     @Override
     public Optional<Integer> getIntValue(Long tenant, String key) {
-        return Optional.empty();
+        return getValue(tenant, key).filter(NumberUtils::isCreatable).map(NumberUtils::createInteger);
     }
 
 }

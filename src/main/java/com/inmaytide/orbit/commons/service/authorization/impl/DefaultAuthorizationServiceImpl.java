@@ -1,14 +1,13 @@
 package com.inmaytide.orbit.commons.service.authorization.impl;
 
-import com.inmaytide.orbit.commons.configuration.GlobalProperties;
-import com.inmaytide.orbit.commons.constants.Constants;
 import com.inmaytide.orbit.commons.domain.Oauth2Token;
 import com.inmaytide.orbit.commons.domain.OrbitClientDetails;
 import com.inmaytide.orbit.commons.domain.Robot;
 import com.inmaytide.orbit.commons.domain.SystemUser;
 import com.inmaytide.orbit.commons.domain.dto.params.LoginParameters;
+import com.inmaytide.orbit.commons.service.WebClientFactory;
 import com.inmaytide.orbit.commons.service.authorization.AuthorizationService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.inmaytide.orbit.commons.service.configuration.Constants;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -32,22 +31,14 @@ import java.util.Optional;
 @Service
 public class DefaultAuthorizationServiceImpl implements AuthorizationService {
 
-    private WebClient client;
+    private final WebClientFactory clientFactory;
 
-    private final WebClient.Builder clientBuilder;
-
-    private final GlobalProperties properties;
-
-    public DefaultAuthorizationServiceImpl(@Qualifier("internalApiClientBuilder") WebClient.Builder clientBuilder, GlobalProperties properties) {
-        this.clientBuilder = clientBuilder;
-        this.properties = properties;
+    public DefaultAuthorizationServiceImpl(WebClientFactory clientFactory) {
+        this.clientFactory = clientFactory;
     }
 
     private WebClient getClient() {
-        if (client == null) {
-            client = clientBuilder.baseUrl(properties.getAuthorizationServerURI()).build();
-        }
-        return client;
+        return clientFactory.get(SERVICE_NAME);
     }
 
     private Mono<Oauth2Token> getOauth2Token(MultiValueMap<String, String> params) {
@@ -73,7 +64,7 @@ public class DefaultAuthorizationServiceImpl implements AuthorizationService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("username", params.getLoginName());
         body.add("password", params.getPassword());
-        body.add(Constants.RequestParameters.PLATFORM, params.getPlatform().name());
+        body.add(com.inmaytide.orbit.commons.constants.Constants.RequestParameters.PLATFORM, params.getPlatform().name());
         body.add("forcedReplacement", params.getForcedReplacement().name());
         body.add("grant_type", AuthorizationGrantType.PASSWORD.getValue());
 
@@ -87,14 +78,19 @@ public class DefaultAuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    public Mono<Oauth2Token> getRobotToken() {
+    public String getRobotToken() {
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", AuthorizationGrantType.CLIENT_CREDENTIALS.getValue());
         return getClient().post()
                 .uri("/oauth2/token")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .header(HttpHeaders.AUTHORIZATION, Robot.getInstance().getClientSecretBasicAuthentication())
-                .bodyValue(Map.of("grant_type", "client_credentials"))
+                .body(BodyInserters.fromFormData(body))
                 .retrieve()
-                .bodyToMono(Oauth2Token.class);
+                .bodyToMono(Oauth2Token.class)
+                .blockOptional(Duration.ofSeconds(Constants.BLOCK_TIMEOUT_SECONDS))
+                .map(Oauth2Token::getAccessToken)
+                .orElseThrow(IllegalStateException::new);
     }
 
     @Override
@@ -110,13 +106,13 @@ public class DefaultAuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    @Cacheable(cacheNames = Constants.CacheNames.USER_DETAILS, key = "#p0", unless = "#result == null")
+    @Cacheable(cacheNames = com.inmaytide.orbit.commons.constants.Constants.CacheNames.USER_DETAILS, key = "#p0", unless = "#result == null")
     public SystemUser get(Serializable id) {
         return getClient().get()
                 .uri("/api/system-users/{id}", id)
                 .retrieve()
                 .bodyToMono(SystemUser.class)
-                .block(Duration.ofSeconds(10));
+                .block(Duration.ofSeconds(Constants.BLOCK_TIMEOUT_SECONDS));
     }
 
     @Override

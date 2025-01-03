@@ -11,12 +11,14 @@ import reactor.core.publisher.Mono;
  */
 public interface AuthorizationService extends SystemUserService {
 
+    String SERVICE_NAME = "authorization";
+
     Mono<Oauth2Token> refreshToken(String refreshToken);
 
     Mono<Oauth2Token> getToken(LoginParameters params);
 
     Mono<Void> revokeToken(String accessToken);
 
-    Mono<Oauth2Token> getRobotToken();
+    String getRobotToken();
 
 }
