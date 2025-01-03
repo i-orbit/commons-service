@@ -52,11 +52,11 @@ public class DefaultAuthorizationServiceImpl implements AuthorizationService {
     }
 
     @Override
-    public Mono<Oauth2Token> refreshToken(String refreshToken) {
+    public Oauth2Token refreshToken(String refreshToken) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", AuthorizationGrantType.REFRESH_TOKEN.getValue());
         params.add("refresh_token", refreshToken);
-        return getOauth2Token(params);
+        return getOauth2Token(params).block(Duration.ofSeconds(Constants.BLOCK_TIMEOUT_SECONDS));
     }
 
     @Override
