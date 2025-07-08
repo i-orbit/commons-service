@@ -19,7 +19,7 @@ public class DefaultGeographicCoordinateServiceImpl implements GeographicCoordin
     }
 
     @Override
-    public AffectedResult deleteByBusinessDataId(Long businessDataId) {
+    public AffectedResult deleteByBusinessDataId(String businessDataId) {
         return null;
     }
 

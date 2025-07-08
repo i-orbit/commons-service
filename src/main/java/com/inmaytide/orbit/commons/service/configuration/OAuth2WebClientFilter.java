@@ -16,7 +16,7 @@ import static com.inmaytide.orbit.commons.constants.Constants.HttpHeaderNames.*;
  * @author inmaytide
  * @since 2024/12/31
  */
-public class Oauth2WebClientFilter implements ExchangeFilterFunction {
+public class OAuth2WebClientFilter implements ExchangeFilterFunction {
 
     @NonNull
     @Override

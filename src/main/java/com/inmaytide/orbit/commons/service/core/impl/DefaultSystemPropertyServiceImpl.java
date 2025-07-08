@@ -30,7 +30,7 @@ public class DefaultSystemPropertyServiceImpl implements SystemPropertyService {
     }
 
     @Override
-    public Optional<String> getValue(Long tenant, String key) {
+    public Optional<String> getValue(String tenant, String key) {
         return getClient().get()
                 .uri(builder -> builder.path("/api/system/properties/value").queryParam("tenantId", tenant).queryParam("key", key).build())
                 .retrieve()
@@ -39,7 +39,7 @@ public class DefaultSystemPropertyServiceImpl implements SystemPropertyService {
     }
 
     @Override
-    public Optional<Integer> getIntValue(Long tenant, String key) {
+    public Optional<Integer> getIntValue(String tenant, String key) {
         return getValue(tenant, key).filter(NumberUtils::isCreatable).map(NumberUtils::createInteger);
     }
 

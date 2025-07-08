@@ -12,6 +12,6 @@ public interface GeographicCoordinateService {
 
     void persist(BatchUpdate<GeographicCoordinate> body);
 
-    AffectedResult deleteByBusinessDataId(Long businessDataId);
+    AffectedResult deleteByBusinessDataId(String businessDataId);
 
 }

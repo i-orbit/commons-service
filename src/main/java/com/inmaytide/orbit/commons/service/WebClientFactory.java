@@ -2,7 +2,8 @@ package com.inmaytide.orbit.commons.service;
 
 import com.inmaytide.orbit.commons.configuration.GlobalProperties;
 import com.inmaytide.orbit.commons.service.authorization.AuthorizationService;
-import com.inmaytide.orbit.commons.service.configuration.Oauth2WebClientFilter;
+import com.inmaytide.orbit.commons.service.configuration.InternalServiceExchangeFilter;
+import com.inmaytide.orbit.commons.service.configuration.OAuth2WebClientFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -30,7 +31,8 @@ public final class WebClientFactory {
 
     private WebClient.Builder createWebClientBuilder() {
         return WebClient.builder()
-                .filter(new Oauth2WebClientFilter());
+                .filter(new InternalServiceExchangeFilter())
+                .filter(new OAuth2WebClientFilter());
     }
 
     public WebClient get(String service) {
